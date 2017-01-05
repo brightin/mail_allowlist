@@ -14,7 +14,7 @@ class MailWhitelist
 
   def delivering_email(mail)
     mail.to = mail.to.select do |recipient|
-      @whitelist.include?(recipient)
+      whitelist.include?(recipient)
     end
     mail.to = [fallback] unless mail.to.any?
   end
