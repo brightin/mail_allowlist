@@ -1,8 +1,15 @@
 # MailWhitelist
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mail_whitelist`. To experiment with that code, run `bin/console` for an interactive prompt.
+MailWhitelist is a class you can provide as an
+[interceptor](http://guides.rubyonrails.org/action_mailer_basics.html#intercepting-emails)
+to your Rails app. It ensures only some people are able to receive mails from
+your app and provides a fallback in case nobody would receive the mail. This
+can be useful to make sure no accidental emails are sent from your staging
+environment, but your mails can still be checked.
 
-TODO: Delete this and the text above, and describe your gem
+One way to use it is to set an environment variable `MAIL_WHITELIST` and check
+for its existence and use it to instantiate the `MailWhitelist` class so that
+within this environment only those email addresses will have mail sent to them.
 
 ## Installation
 
