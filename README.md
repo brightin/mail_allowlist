@@ -7,10 +7,10 @@ your app and provides a fallback in case nobody would receive the mail. This
 can be useful to make sure no accidental emails are sent from your staging
 environment, but your mails can still be checked.
 
-One way to use it is to set an environment variable `MAIL_WHITELIST`. Check
-for its existence and use it to instantiate the `MailWhitelist` class so that
-within this environment only those email addresses can have mail sent to them.
-See below for code exapmle.
+One way to use it is to set an environment variable `MAIL_WHITELIST`, check
+for its existence and use it to instantiate a `MailWhitelist` so that within 
+this environment only those emailaddresses can have mail sent to them.
+See below for a code exapmle.
 
 ## Installation
 
