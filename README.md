@@ -7,9 +7,10 @@ your app and provides a fallback in case nobody would receive the mail. This
 can be useful to make sure no accidental emails are sent from your staging
 environment, but your mails can still be checked.
 
-One way to use it is to set an environment variable `MAIL_WHITELIST` and check
+One way to use it is to set an environment variable `MAIL_WHITELIST`. Check
 for its existence and use it to instantiate the `MailWhitelist` class so that
-within this environment only those email addresses will have mail sent to them.
+within this environment only those email addresses can have mail sent to them.
+See below for code exapmle.
 
 ## Installation
 
@@ -30,13 +31,19 @@ Or install it yourself as:
 ## Usage
 
 Specify your whitelist as an array of email addresses and register them in an
-initializer in your Rails app as such:
+initializer in your Rails app. Optionally specify a fallback address as second
+argument.
+
+Example Rails app initializer using `ENV` variables:
 
 ```ruby
 require 'mail_whitelist'
 
-whitelist = ['tom@brightin.nl']
-ActionMailer::Base.register_interceptor(MailWhitelist.new(whitelist)
+if ENV.key?('MAIL_WHITELIST')
+  whitelist = ENV['MAIL_WHITELIST'].split(',')
+  fallback = ENV['MAIL_WHITELIST_FALLBACK']
+  ActionMailer::Base.register_interceptor(MailWhitelist.new(whitelist, fallback))
+end
 ```
 
 ## Development
