@@ -13,9 +13,19 @@ class MailWhitelist
   end
 
   def delivering_email(mail)
-    mail.to = mail.to.select do |recipient|
-      whitelist.include?(recipient)
-    end
+    mail.to = mail.to.select { |recipient| whitelisted?(recipient) }
     mail.to = [fallback] unless mail.to.any?
+  end
+
+  private
+
+  def whitelisted?(recipient)
+    whitelist.any? do |whitelisted_address|
+      if whitelisted_address.start_with?('@')
+        recipient.end_with?(whitelisted_address)
+      else
+        whitelisted_address == recipient
+      end
+    end
   end
 end

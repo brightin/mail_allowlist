@@ -3,7 +3,7 @@ require 'ostruct'
 
 RSpec.describe MailWhitelist do
   subject(:mail_whitelist) do
-    described_class.new(['john@example.com', 'eric@example.com'],
+    described_class.new(%w(john@example.com eric@example.com @example2.com),
                         'terry@example.com')
   end
 
@@ -12,9 +12,11 @@ RSpec.describe MailWhitelist do
   end
 
   it 'removes recipients from an email using a whitelist' do
-    email = OpenStruct.new(to: ['john@example.com', 'graham@example.com'])
+    email = OpenStruct.new(
+      to: %w(john@example.com graham@example.com anyone@example2.com)
+    )
     expect { mail_whitelist.delivering_email(email) }
-      .to change { email.to }.to(['john@example.com'])
+      .to change { email.to }.to(%w(john@example.com anyone@example2.com))
   end
 
   it 'will send the email to the fallback when no recipients remain' do
