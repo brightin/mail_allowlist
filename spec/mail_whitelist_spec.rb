@@ -13,10 +13,18 @@ RSpec.describe MailWhitelist do
 
   it 'removes recipients from an email using a whitelist' do
     email = OpenStruct.new(
-      to: %w(john@example.com graham@example.com anyone@example2.com)
+      to: %w(john@example.com graham@example.com)
     )
     expect { mail_whitelist.delivering_email(email) }
-      .to change { email.to }.to(%w(john@example.com anyone@example2.com))
+      .to change { email.to }.to(%w(john@example.com))
+  end
+
+  it 'leaves recipients with a whitelisted domain' do
+    email = OpenStruct.new(
+      to: %w(matt@example2.com matt@example.com)
+    )
+    expect { mail_whitelist.delivering_email(email) }
+      .to change { email.to }.to(%w(matt@example2.com))
   end
 
   it 'will send the email to the fallback when no recipients remain' do
