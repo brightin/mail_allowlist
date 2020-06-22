@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mail_whitelist/version'
+require 'mail_allowlist/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'mail_whitelist'
-  spec.version       = MailWhitelist::VERSION
+  spec.name          = 'mail_allowlist'
+  spec.version       = MailAllowlist::VERSION
   spec.authors       = ['Tom Kruijsen']
   spec.email         = ['tom@brightin.nl']
 
-  spec.summary       = 'Easily whitelist email addresses in your Rails app.'
-  spec.homepage      = 'https://www.github.com/brightin/mail_whitelist'
+  spec.summary       = 'Easily allowlist email addresses in your Rails app.'
+  spec.homepage      = 'https://www.github.com/brightin/mail_allowlist'
   spec.license       = 'MIT'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
