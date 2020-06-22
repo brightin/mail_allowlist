@@ -1,14 +1,14 @@
-# MailWhitelist
+# MailAllowlist
 
-MailWhitelist is a class you can provide as an
+MailAllowlist is a class you can provide as an
 [interceptor](http://guides.rubyonrails.org/action_mailer_basics.html#intercepting-emails)
 to your Rails app. It ensures only some people are able to receive mails from
 your app and provides a fallback in case nobody would receive the mail. This
 can be useful to make sure no accidental emails are sent from your staging
 environment, but your mails can still be checked.
 
-One way to use it is to set an environment variable `MAIL_WHITELIST`, check
-for its existence and use it to instantiate a `MailWhitelist` so that within 
+One way to use it is to set an environment variable `MAIL_ALLOWLIST`, check
+for its existence and use it to instantiate a `MailAllowlist` so that within 
 this environment only those emailaddresses can have mail sent to them.
 See below for a code exapmle.
 
@@ -17,7 +17,7 @@ See below for a code exapmle.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'mail_whitelist'
+gem 'mail_allowlist'
 ```
 
 And then execute:
@@ -26,23 +26,23 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mail_whitelist
+    $ gem install mail_allowlist
 
 ## Usage
 
-Specify your whitelist as an array of email addresses and register them in an
+Specify your allowlist as an array of email addresses and register them in an
 initializer in your Rails app. Optionally specify a fallback address as second
 argument.
 
 Example Rails app initializer using `ENV` variables:
 
 ```ruby
-require 'mail_whitelist'
+require 'mail_allowlist'
 
-if ENV.key?('MAIL_WHITELIST')
-  whitelist = ENV['MAIL_WHITELIST'].split(',')
-  fallback = ENV['MAIL_WHITELIST_FALLBACK']
-  ActionMailer::Base.register_interceptor(MailWhitelist.new(whitelist, fallback))
+if ENV.key?('MAIL_ALLOWLIST')
+  allowlist = ENV['MAIL_ALLOWLIST'].split(',')
+  fallback = ENV['MAIL_ALLOWLIST_FALLBACK']
+  ActionMailer::Base.register_interceptor(MailAllowlist.new(allowlist, fallback))
 end
 ```
 
@@ -54,7 +54,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/brightin/mail_whitelist. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/brightin/mail_allowlist. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
